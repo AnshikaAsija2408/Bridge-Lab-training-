@@ -19,14 +19,14 @@ public class ExceptionHandling {
         catch (ArrayIndexOutOfBoundsException | ArithmeticException | NullPointerException e) {
             System.out.println(e.getMessage()); // common handling for multiple exceptions
         } catch (RuntimeException e) {
-            System.out.println("Runtime exception occurred: ");
+            System.out.println("Runtime exception occurred: " + e.getMessage());
         }
         // catch(Exception e){ //all exceptions are handled by this block but it is not
         // recommended to use this as it will catch all exceptions and we won't be able
         // to handle specific exceptions
         // System.out.println("General exception occurred: ");
         // }
-        System.out.println("bye");
+        System.out.println("bye bye");
 
     }
 }
