@@ -134,3 +134,4 @@ class SocialMediaSystem {
         }
     }
 }
+// Initially could not figure out how to put users and posts in a sinlge class
