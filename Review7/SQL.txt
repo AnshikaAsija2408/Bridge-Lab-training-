@@ -1,0 +1,90 @@
+CREATE TABLE DEPARTMENT(
+dpt_id INT PRIMARY KEY,
+dept_name VARCHAR(50)
+);
+
+INSERT INTO DEPARTMENT (dpt_id,dept_name) VALUES(1,'marketing'),
+(2,'IT'),
+(3,'sales'),
+(4,'finance'),
+(5,'Data Analyst'),
+(6,'HR');
+
+
+
+CREATE TABLE EMPLOYEEE (
+  empId INTEGER PRIMARY KEY,
+  empName VARCHAR(50) NOT NULL,
+  dept_name VARCHAR(50) ,
+  salary INT ,
+  age INT ,
+  city VARCHAR(50)  ,
+  manager_id INT ,
+  joining_date DATE 
+
+);
+
+
+INSERT INTO EMPLOYEEE VALUES (101,'Tom','marketing',5000,28,'Delhi',001,'2026-06-1'),
+ (102,'Zendaya','finance',6000,29,'Mumbai',002,'2026-06-15'),
+ (103,'Tony','IT',4000,36,'Gurugram',003,'2026-05-15'),
+ (104,'Johnny','HR',3000,36,'Noida',004,'2026-04-15'),
+ (105,'Harry','Sales',4000,36,'Bengalore',005,'2026-06-10');
+
+
+
+
+SELECT DEPARTMENT.dept_name FROM DEPARTMENT LEFT JOIN EMPLOYEEE ON DEPARTMENT.dept_name=EMPLOYEEE.dept_name;
+SELECT TOP 1 dept_name,AVG(salary) AS avg_salary FROM EMPLOYEEE GROUP BY dept_name ORDER BY AVG(salary) DESC;
+SELECT *FROM EMPLOYEEE WHERE joining_date>=DATEADD(DAY,-30,GETDATE());
+
+SELECT * FROM EMPLOYEEE WHERE age BETWEEN 25 AND 30;
+SELECT * FROM EMPLOYEEE WHERE empName LIKE 'T%';
+
+SELECT * FROM EMPLOYEEE WHERE salary IS NULL;
+
+SELECT * FROM EMPLOYEEE ORDER BY salary ASC;
+
+SELECT * FROM EMPLOYEEE ORDER BY salary DESC;
+
+SELECT TOP 5* FROM EMPLOYEEE;
+
+SELECT MAX(salary) AS Highest_Salary FROM EMPLOYEEE;
+
+SELECT MAX(salary) AS Second_Highest_Salary FROM EMPLOYEEE
+WHERE salary<(
+    SELECT MAX(salary)
+    FROM EMPLOYEEE);
+
+SELECT AVG(salary) AS Average_Salary FROM EMPLOYEEE;
+
+SELECT * FROM EMPLOYEEE;
+
+SELECT * FROM EMPLOYEEE WHERE salary > 50000;
+
+SELECT empName FROM EMPLOYEEE;
+
+SELECT * FROM EMPLOYEEE WHERE city = 'Delhi';
+SELECT *FROM EMPLOYEEE WHERE dept_name = 'IT';
+SELECT COUNT(*) AS Total_Employees FROM EMPLOYEEE;
+SELECT MIN(salary) AS Minimum_Salary FROM EMPLOYEEE;
+SELECT SUM(salary) AS Total_Salary FROM EMPLOYEEE;
+SELECT DISTINCT TOP 1 salary FROM (
+    SELECT DISTINCT TOP 3 salary FROM EMPLOYEEE
+    ORDER BY salary DESC
+) AS Temp ORDER BY salary ASC;
+INSERT INTO EMPLOYEEE VALUES
+(106,'Harry','Sales',4000,36,'Bengalore',005,'2026-06-10'),
+(107,'Harry','Sales',4000,36,'Bengalore',005,'2026-06-10');
+DELETE e1 FROM EMPLOYEEE e1 JOIN EMPLOYEEE e2 ON e1.empName = e2.empName
+AND e1.dept_name = e2.dept_name
+AND e1.salary = e2.salary
+AND e1.age = e2.age
+AND e1.city = e2.city
+AND e1.manager_id = e2.manager_id
+AND e1.joining_date = e2.joining_date
+AND e1.empId > e2.empId;
+SELECT e.empName, d.dept_name
+FROM EMPLOYEEE e
+INNER JOIN DEPARTMENT d
+ON e.dept_name = d.dept_name;
